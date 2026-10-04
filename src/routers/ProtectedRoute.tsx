@@ -1,5 +1,8 @@
+import { Outlet } from "react-router-dom";
+
+// TODO: redirect to "/" when there is no authenticated session once the auth API is connected.
 const ProtectedRoute = () => {
-  return <div>ProtectedRoute</div>;
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
