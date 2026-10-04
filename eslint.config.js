@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', '.kilo']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -17,6 +17,17 @@ export default defineConfig([
     ],
     languageOptions: {
       globals: globals.browser,
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  {
+    // Hard limit: no component file may exceed 300 lines (blank lines and comments included).
+    // A page whose index.tsx would exceed it must move sections into its own components/ folder.
+    files: ['src/**/*.tsx'],
+    rules: {
+      'max-lines': ['error', { max: 300, skipBlankLines: false, skipComments: false }],
     },
   },
 ])
